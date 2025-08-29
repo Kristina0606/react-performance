@@ -1,1 +1,2 @@
 # react-performance
+React app with using React Suspense for loading CO₂ emissions JSON, providing a searchable, filterable, and sortable list of countries showing name, ISO code, and population alongside a per-year table of emissions (year, population, co₂, co₂ per capita, with “N/A” for missing values), plus a global year selector that highlights updates, a modal to toggle extra data columns (methane, oil_co₂, temperature_change, etc.), and under-the-hood optimizations via useMemo, useCallback, and React.memo.
