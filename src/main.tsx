@@ -1,10 +1,34 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
-import App from './App.tsx';
+import { createBrowserRouter, RouterProvider } from 'react-router';
+import Layout from './pages/Layout.tsx';
+import MainPage from './pages/MainPage.tsx';
+import { Provider } from 'react-redux';
+import { store } from './store/store.ts';
 
-createRoot(document.getElementById('root')!).render(
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    HydrateFallback: () => (
+      <div className="flex items-center justify-center h-screen">
+        loading....
+      </div>
+    ),
+    children: [
+      {
+        index: true,
+        element: <MainPage />,
+      },
+    ],
+  },
+]);
+
+createRoot(document.getElementById('root') as HTMLElement).render(
   <StrictMode>
-    <App />
+    <Provider store={store}>
+      <RouterProvider router={router}></RouterProvider>
+    </Provider>
   </StrictMode>
 );
