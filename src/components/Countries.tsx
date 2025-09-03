@@ -1,6 +1,7 @@
 import { lazy, Suspense, type FC } from 'react';
 import type { CountriesProps } from '../types/interfaces';
-import { SkeletonCountryLoader } from './SkeletonCountryLoader';
+import { SkeletonCountryLoader } from '../skeletons/SkeletonCountryLoader';
+import React from 'react';
 
 const CountryPoint = lazy(() => import('./CountryPoint'));
 
@@ -24,4 +25,4 @@ const Countries: FC<CountriesProps> = ({ countriesList }) => {
   );
 };
 
-export default Countries;
+export default React.memo(Countries);

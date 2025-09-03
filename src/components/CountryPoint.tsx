@@ -1,10 +1,14 @@
 import type { FC } from 'react';
 import countryImg from '../assets/web_13293948.png';
 import type { CountryPointProps } from '../types/interfaces';
+import { Link } from 'react-router-dom';
 
 const CountryPoint: FC<CountryPointProps> = ({ code, countriesList }) => {
   return (
-    <div className="text-left w-150 cursor-pointer border border-gray-300 rounded-md p-4 hover:bg-blue-200 duration-300">
+    <Link
+      to={`/${code}`}
+      className="text-left w-150 cursor-pointer border border-gray-300 rounded-md p-4 hover:bg-blue-200 duration-300"
+    >
       <figure className="flex gap-1 items-center">
         <img src={countryImg} alt="country-icon" className="w-7 h h-7" />
         <figcaption>{code}</figcaption>
@@ -22,7 +26,7 @@ const CountryPoint: FC<CountryPointProps> = ({ code, countriesList }) => {
           ? countriesList[code].data.at(-1)?.population
           : 'N/A'}
       </p>
-    </div>
+    </Link>
   );
 };
 

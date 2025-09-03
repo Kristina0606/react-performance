@@ -6,6 +6,7 @@ import Layout from './pages/Layout.tsx';
 import MainPage from './pages/MainPage.tsx';
 import { Provider } from 'react-redux';
 import { store } from './store/store.ts';
+import TablePage from './pages/TablePage.tsx';
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <MainPage />,
+      },
+      {
+        path: '/:country',
+        element: <TablePage />,
       },
     ],
   },
