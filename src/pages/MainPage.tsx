@@ -4,10 +4,15 @@ import React from 'react';
 import Countries from '../components/Countries';
 
 const MainPage: FC = () => {
-  const { data = {} } = useGetCountriesQuery();
+  const { data = {}, isError } = useGetCountriesQuery();
+
   return (
     <>
-      <Countries countriesList={data} />
+      {isError ? (
+        <div>error loading data...</div>
+      ) : (
+        <Countries countriesList={data} />
+      )}
     </>
   );
 };

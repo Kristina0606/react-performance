@@ -1,6 +1,8 @@
-import type { FC } from 'react';
+import { lazy, Suspense, type FC } from 'react';
 import type { CountriesProps } from '../types/interfaces';
-import countryImg from '../assets/web_13293948.png';
+import { SkeletonCountryLoader } from './SkeletonCountryLoader';
+
+const CountryPoint = lazy(() => import('./CountryPoint'));
 
 const Countries: FC<CountriesProps> = ({ countriesList }) => {
   console.log(countriesList);
@@ -9,28 +11,13 @@ const Countries: FC<CountriesProps> = ({ countriesList }) => {
     <div className="flex flex-col items-center gap-2">
       {codes.map((code) => {
         return (
-          <div
-            key={code}
-            className="text-left w-150 cursor-pointer border border-gray-300 rounded-md p-4 hover:bg-blue-200 duration-300"
-          >
-            <figure className="flex gap-1 items-center">
-              <img src={countryImg} alt="country-icon" className="w-7 h h-7" />
-              <figcaption>{code}</figcaption>
-            </figure>
-
-            <p>
-              iso code:&nbsp;
-              {countriesList[code]['iso_code']
-                ? countriesList[code]['iso_code']
-                : '- '}
-            </p>
-            <p>
-              population:&nbsp;
-              {countriesList[code].data.at(-1)?.population
-                ? countriesList[code].data.at(-1)?.population
-                : 'no data available'}
-            </p>
-          </div>
+          <Suspense key={code} fallback={<SkeletonCountryLoader />}>
+            <CountryPoint
+              key={code}
+              code={code}
+              countriesList={countriesList}
+            />
+          </Suspense>
         );
       })}
     </div>
