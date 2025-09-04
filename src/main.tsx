@@ -7,14 +7,21 @@ import MainPage from './pages/MainPage.tsx';
 import { Provider } from 'react-redux';
 import { store } from './store/store.ts';
 import TablePage from './pages/TablePage.tsx';
+import { ClipLoader } from 'react-spinners';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <Layout />,
     HydrateFallback: () => (
-      <div className="flex items-center justify-center h-screen">
-        loading....
+      <div className="h-screen flex items-center justify-center">
+        <ClipLoader
+          color="#57729dff"
+          loading={true}
+          size={48}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+        />
       </div>
     ),
     children: [
