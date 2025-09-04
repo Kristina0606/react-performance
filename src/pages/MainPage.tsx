@@ -4,6 +4,7 @@ import React from 'react';
 import Countries from '../components/Countries';
 import { ClipLoader } from 'react-spinners';
 import DataListOfCountries from '../components/DataListOfCountries';
+import SearchCountry from '../components/SearchCountry';
 
 const MainPage: FC = () => {
   const { data = {}, isLoading, isError } = useGetCountriesQuery();
@@ -24,6 +25,7 @@ const MainPage: FC = () => {
         <div>error loading data...</div>
       ) : (
         <>
+          <SearchCountry />
           <DataListOfCountries countriesList={data} />
           <Countries countriesList={data} />
         </>

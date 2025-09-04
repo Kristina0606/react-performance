@@ -16,6 +16,10 @@ export interface CountryDataTableProps {
   paramCountry: string;
 }
 
+export interface SkeletonCountryLoaderProps {
+  count: number;
+}
+
 export interface CountryData {
   year: number;
   population: number;

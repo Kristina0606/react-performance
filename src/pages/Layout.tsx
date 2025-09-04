@@ -3,7 +3,7 @@ import { Outlet } from 'react-router';
 
 const Layout: FC = () => {
   return (
-    <div>
+    <div className="flex flex-col items-center gap-4 pt-4">
       <Outlet />
     </div>
   );
