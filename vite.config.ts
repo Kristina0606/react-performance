@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/rss-react-task1/',
+  base: '/react-performance/',
   build: {
     outDir: 'dist',
   },
