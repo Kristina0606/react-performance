@@ -21,7 +21,7 @@ const CountryPoint: FC<CountryPointProps> = ({ code, countriesList }) => {
           : '- '}
       </p>
       <p>
-        population:&nbsp;
+        population for {countriesList[code].data.at(-1)?.year}:&nbsp;
         {countriesList[code].data.at(-1)?.population
           ? countriesList[code].data.at(-1)?.population
           : 'N/A'}
