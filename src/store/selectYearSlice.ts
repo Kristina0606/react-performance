@@ -7,7 +7,7 @@ const selectYearSlice = createSlice({
   },
   reducers: {
     selectYear(state, action) {
-      state.year = action.payload.year;
+      state.year = action.payload;
     },
   },
 });

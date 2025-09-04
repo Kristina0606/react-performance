@@ -1,9 +1,17 @@
-import type { FC } from 'react';
+import { useMemo, type FC } from 'react';
 import countryImg from '../assets/web_13293948.png';
 import type { CountryPointProps } from '../types/interfaces';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import type { RootState } from '../store/store';
 
 const CountryPoint: FC<CountryPointProps> = ({ code, countriesList }) => {
+  const currentYear = useSelector((state: RootState) => state.year.year);
+  const dataForYear = useMemo(
+    () => countriesList[code].data.find((entry) => entry.year === currentYear),
+    [countriesList, code, currentYear]
+  );
+  const population = dataForYear?.population ?? 'N/A';
   return (
     <Link
       to={`/${code}`}
@@ -21,10 +29,8 @@ const CountryPoint: FC<CountryPointProps> = ({ code, countriesList }) => {
           : '- '}
       </p>
       <p>
-        population for {countriesList[code].data.at(-1)?.year}:&nbsp;
-        {countriesList[code].data.at(-1)?.population
-          ? countriesList[code].data.at(-1)?.population
-          : 'N/A'}
+        population for {currentYear}:&nbsp;
+        {population}
       </p>
     </Link>
   );

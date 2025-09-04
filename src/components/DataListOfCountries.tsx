@@ -23,7 +23,7 @@ const DataListOfCountries: FC<CountriesProps> = ({ countriesList }) => {
   const reversedArr = maxVal.data.slice().reverse();
 
   const handleSelectChange = (evt: ChangeEvent<HTMLSelectElement>) => {
-    dispatch(selectYear(evt.target.value));
+    dispatch(selectYear(Number(evt.target.value)));
   };
 
   return (

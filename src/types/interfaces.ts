@@ -17,7 +17,7 @@ export interface CountryDataTableProps {
 }
 
 export interface CountryData {
-  year: string;
+  year: number;
   population: number;
   cement_co2: number;
   cement_co2_per_capita: number;
