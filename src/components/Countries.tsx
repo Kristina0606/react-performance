@@ -10,7 +10,14 @@ const CountryPoint = lazy(() => import('./CountryPoint'));
 const Countries: FC<CountriesProps> = ({ countriesList }) => {
   console.log(countriesList);
   const searchData = useSelector((state: RootState) => state.country.country);
-  const codes = useMemo(() => Object.keys(countriesList), [countriesList]);
+  const isSorted = useSelector((state: RootState) => state.isSorted.isSorted);
+  const codes = useMemo(
+    () =>
+      isSorted
+        ? Object.keys(countriesList).reverse()
+        : Object.keys(countriesList),
+    [countriesList, isSorted]
+  );
   const searchCodes = useMemo(() => {
     const lower = searchData.toLowerCase().trim();
     if (!lower) {
