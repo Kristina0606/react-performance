@@ -9,7 +9,7 @@ import {
   List,
   type ListRowRenderer,
 } from 'react-virtualized';
-import CountryRow from './countryRow';
+import CountryRow from './CountryRow';
 
 const Countries: FC<CountriesProps> = ({ countriesList }) => {
   console.log(countriesList);
