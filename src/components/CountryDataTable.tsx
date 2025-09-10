@@ -1,20 +1,17 @@
 import { useEffect, useState, type FC } from 'react';
 import type { CountryDataTableProps } from '../types/interfaces';
-import { useGetCountriesQuery } from '../api/co2Api';
+import { useGetCountryByCodeQuery } from '../api/co2Api';
 
 const CountryDataTable: FC<CountryDataTableProps> = ({ paramCountry }) => {
   const [indexArr, setindexArr] = useState<string[]>([]);
-  const { data = {}, isError } = useGetCountriesQuery();
-  const currentCountry = data[paramCountry];
+  const { data, isError } = useGetCountryByCodeQuery(paramCountry);
+  const currentCountry = data;
 
   useEffect(() => {
     if (currentCountry) {
       setindexArr(Object.keys(currentCountry.data));
     }
   }, [currentCountry, data, paramCountry]);
-
-  console.log(currentCountry);
-  console.log(indexArr);
 
   return (
     <>
@@ -53,25 +50,25 @@ const CountryDataTable: FC<CountryDataTableProps> = ({ paramCountry }) => {
           <tbody>
             {indexArr.map((i) => {
               return (
-                <tr key={currentCountry.data[Number(i)].year}>
-                  <th scope="row">{currentCountry.data[Number(i)].year}</th>
+                <tr key={currentCountry?.data[Number(i)].year}>
+                  <th scope="row">{currentCountry?.data[Number(i)].year}</th>
                   <td className="text-center">
-                    {currentCountry.data[Number(i)].population ? (
-                      currentCountry.data[Number(i)].population
+                    {currentCountry?.data[Number(i)].population ? (
+                      currentCountry?.data[Number(i)].population
                     ) : (
                       <p>n/a</p>
                     )}
                   </td>
                   <td className="text-center">
-                    {currentCountry.data[Number(i)].cement_co2 ? (
-                      currentCountry.data[Number(i)].cement_co2
+                    {currentCountry?.data[Number(i)].cement_co2 ? (
+                      currentCountry?.data[Number(i)].cement_co2
                     ) : (
                       <p>n/a</p>
                     )}
                   </td>
                   <td className="text-center">
-                    {currentCountry.data[Number(i)].cement_co2_per_capita ? (
-                      currentCountry.data[Number(i)].cement_co2_per_capita
+                    {currentCountry?.data[Number(i)].cement_co2_per_capita ? (
+                      currentCountry?.data[Number(i)].cement_co2_per_capita
                     ) : (
                       <p>n/a</p>
                     )}
