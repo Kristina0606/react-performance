@@ -13,12 +13,9 @@ const CountryPoint: FC<CountryPointProps> = ({ code, countriesList }) => {
   );
   const population = dataForYear?.population ?? 'N/A';
   return (
-    <Link
-      to={`/${code}`}
-      className="text-left w-150 cursor-pointer border border-gray-300 rounded-md p-4 hover:bg-blue-200 duration-300"
-    >
+    <Link to={`/${code}`}>
       <figure className="flex gap-1 items-center">
-        <img src={countryImg} alt="country-icon" className="w-7 h h-7" />
+        <img src={countryImg} alt="country-icon" className="w-7 h-7" />
         <figcaption>{code}</figcaption>
       </figure>
 

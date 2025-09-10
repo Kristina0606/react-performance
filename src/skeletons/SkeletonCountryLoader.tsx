@@ -5,4 +5,4 @@ import type { SkeletonCountryLoaderProps } from '../types/interfaces';
 
 export const SkeletonCountryLoader: FC<SkeletonCountryLoaderProps> = ({
   count,
-}) => <Skeleton height={113.19} width={600} borderRadius={6} count={count} />;
+}) => <Skeleton height="100%" width="100%" borderRadius={6} count={count} />;
