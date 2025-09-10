@@ -8,7 +8,9 @@ import {
   InfiniteLoader,
   List,
   type ListRowRenderer,
+  type IndexRange,
 } from 'react-virtualized';
+
 import CountryRow from './CountryRow';
 
 const Countries: FC<CountriesProps> = ({ countriesList }) => {
@@ -29,10 +31,13 @@ const Countries: FC<CountriesProps> = ({ countriesList }) => {
 
   const PAGE = 5;
   const [visibleCount, setVisibleCount] = useState(PAGE);
-  const loadMore = () => {
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const loadMore = (_params: IndexRange): Promise<void> => {
     if (visibleCount < codes.length) {
       setVisibleCount((prev) => prev + PAGE);
     }
+    return Promise.resolve();
   };
 
   const rowRenderer = useCallback<ListRowRenderer>(
