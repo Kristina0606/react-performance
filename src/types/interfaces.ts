@@ -1,15 +1,15 @@
 export interface Country {
-  data: CountryData[];
   iso_code: string;
+  data: CountryData[];
 }
 
 export interface CountriesProps {
-  countriesList: Record<string, Country>;
+  countriesList: string[];
 }
 
 export interface CountryPointProps {
   code: string;
-  countriesList: Record<string, Country>;
+  country: Country;
 }
 
 export interface CountryDataTableProps {

@@ -1,14 +1,13 @@
 import type { FC } from 'react';
-import { useGetCountriesQuery } from '../api/co2Api';
 import React from 'react';
 import Countries from '../components/Countries';
 import { ClipLoader } from 'react-spinners';
-import DataListOfCountries from '../components/DataListOfCountries';
 import SearchCountry from '../components/SearchCountry';
 import AZSort from '../components/AZSort';
+import { useGetCountryCodesQuery } from '../api/co2Api';
 
 const MainPage: FC = () => {
-  const { data = {}, isLoading, isError } = useGetCountriesQuery();
+  const { data: codes = [], isLoading, isError } = useGetCountryCodesQuery();
 
   return (
     <>
@@ -17,7 +16,7 @@ const MainPage: FC = () => {
           <ClipLoader
             color="#57729dff"
             loading={isLoading}
-            size={48}
+            size={56}
             aria-label="Loading Spinner"
             data-testid="loader"
           />
@@ -28,10 +27,10 @@ const MainPage: FC = () => {
         <>
           <SearchCountry />
           <div className="flex gap-10">
-            <DataListOfCountries countriesList={data} />
+            {/* <DataListOfCountries countriesList={data} /> */}
             <AZSort />
           </div>
-          <Countries countriesList={data} />
+          <Countries countriesList={codes} />
         </>
       )}
     </>

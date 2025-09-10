@@ -1,22 +1,22 @@
-import { lazy, Suspense, useCallback, useMemo, type FC } from 'react';
+import { useCallback, useMemo, useState, type FC } from 'react';
 import type { CountriesProps } from '../types/interfaces';
-import { SkeletonCountryLoader } from '../skeletons/SkeletonCountryLoader';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../store/store';
-import { AutoSizer, List, type ListRowRenderer } from 'react-virtualized';
-
-const CountryPoint = lazy(() => import('./CountryPoint'));
+import {
+  AutoSizer,
+  InfiniteLoader,
+  List,
+  type ListRowRenderer,
+} from 'react-virtualized';
+import CountryRow from './countryRow';
 
 const Countries: FC<CountriesProps> = ({ countriesList }) => {
   console.log(countriesList);
   const searchData = useSelector((state: RootState) => state.country.country);
   const isSorted = useSelector((state: RootState) => state.isSorted.isSorted);
   const codes = useMemo(
-    () =>
-      isSorted
-        ? Object.keys(countriesList).reverse()
-        : Object.keys(countriesList),
+    () => (isSorted ? [...countriesList].reverse() : [...countriesList]),
     [countriesList, isSorted]
   );
   const searchCodes = useMemo(() => {
@@ -27,38 +27,47 @@ const Countries: FC<CountriesProps> = ({ countriesList }) => {
     return codes.filter((item) => item.toLowerCase().startsWith(lower));
   }, [codes, searchData]);
 
+  const PAGE = 5;
+  const [visibleCount, setVisibleCount] = useState(PAGE);
+  const loadMore = () => {
+    if (visibleCount < codes.length) {
+      setVisibleCount((prev) => prev + PAGE);
+    }
+  };
+
   const rowRenderer = useCallback<ListRowRenderer>(
     ({ index, key, style }) => {
       const code = searchCodes[index];
-      return (
-        <div
-          key={key}
-          style={style}
-          className="cursor-pointer border border-gray-300 rounded-md p-4 hover:bg-blue-200 duration-300"
-        >
-          <Suspense fallback={<SkeletonCountryLoader count={1} />}>
-            <CountryPoint code={code} countriesList={countriesList} />
-          </Suspense>
-        </div>
-      );
+      return <CountryRow key={key} code={code} style={style} />;
     },
-    [countriesList, searchCodes]
+    [searchCodes]
   );
 
   return (
-    <div style={{ width: '70%', height: '80vh' }}>
-      <AutoSizer>
-        {({ width, height }) => (
-          <List
-            width={width}
-            height={height}
-            rowCount={searchCodes.length}
-            rowHeight={113}
-            rowRenderer={rowRenderer}
-            overscanRowCount={2}
-          />
+    <div style={{ width: 600, height: 600 }}>
+      <InfiniteLoader
+        isRowLoaded={({ index }) => index < visibleCount}
+        loadMoreRows={loadMore}
+        rowCount={codes.length}
+        minimumBatchSize={PAGE}
+        threshold={2}
+      >
+        {({ onRowsRendered, registerChild }) => (
+          <AutoSizer>
+            {({ width, height }) => (
+              <List
+                ref={registerChild}
+                onRowsRendered={onRowsRendered}
+                width={width}
+                height={height}
+                rowCount={visibleCount}
+                rowHeight={120}
+                rowRenderer={rowRenderer}
+              />
+            )}
+          </AutoSizer>
         )}
-      </AutoSizer>
+      </InfiniteLoader>
     </div>
   );
 };

@@ -5,11 +5,11 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../store/store';
 
-const CountryPoint: FC<CountryPointProps> = ({ code, countriesList }) => {
+const CountryPoint: FC<CountryPointProps> = ({ code, country }) => {
   const currentYear = useSelector((state: RootState) => state.year.year);
   const dataForYear = useMemo(
-    () => countriesList[code].data.find((entry) => entry.year === currentYear),
-    [countriesList, code, currentYear]
+    () => country.data.find((entry) => entry.year === currentYear),
+    [country, currentYear]
   );
   const population = dataForYear?.population ?? 'N/A';
   return (
@@ -21,9 +21,7 @@ const CountryPoint: FC<CountryPointProps> = ({ code, countriesList }) => {
 
       <p>
         iso code:&nbsp;
-        {countriesList[code]['iso_code']
-          ? countriesList[code]['iso_code']
-          : '- '}
+        {country['iso_code'] ? country['iso_code'] : '- '}
       </p>
       <p>
         population for {currentYear}:&nbsp;

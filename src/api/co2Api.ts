@@ -8,10 +8,27 @@ export const co2Api = createApi({
   }),
   endpoints: (builder) => ({
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    getCountries: builder.query<Record<string, Country>, void>({
-      query: () => 'owid-co2-data.json',
+    // getCountries: builder.query<Record<string, Country>, void>({
+    //   query: () => 'owid-co2-data.json',
+    // }),
+
+    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+    getCountryCodes: builder.query<string[], void>({
+      queryFn: async (_, _api, _extra, fetchWithBQ) => {
+        const res = await fetchWithBQ('owid-co2-data.json');
+        if (res.error) return { error: res.error };
+        return { data: Object.keys(res.data as Record<string, Country>) };
+      },
+    }),
+
+    getCountryByCode: builder.query<Country, string>({
+      async queryFn(code, _api, _extra, fetchWithBQ) {
+        const res = await fetchWithBQ('owid-co2-data.json');
+        if (res.error) return { error: res.error };
+        return { data: (res.data as Record<string, Country>)[code] };
+      },
     }),
   }),
 });
 
-export const { useGetCountriesQuery } = co2Api;
+export const { useGetCountryCodesQuery, useGetCountryByCodeQuery } = co2Api;
