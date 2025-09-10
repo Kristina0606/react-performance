@@ -8,11 +8,6 @@ export const co2Api = createApi({
   }),
   endpoints: (builder) => ({
     // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
-    // getCountries: builder.query<Record<string, Country>, void>({
-    //   query: () => 'owid-co2-data.json',
-    // }),
-
-    // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
     getCountryCodes: builder.query<string[], void>({
       queryFn: async (_, _api, _extra, fetchWithBQ) => {
         const res = await fetchWithBQ('owid-co2-data.json');

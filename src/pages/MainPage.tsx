@@ -5,6 +5,7 @@ import { ClipLoader } from 'react-spinners';
 import SearchCountry from '../components/SearchCountry';
 import AZSort from '../components/AZSort';
 import { useGetCountryCodesQuery } from '../api/co2Api';
+import DataListOfCountries from '../components/DataListOfCountries';
 
 const MainPage: FC = () => {
   const { data: codes = [], isLoading, isError } = useGetCountryCodesQuery();
@@ -27,7 +28,7 @@ const MainPage: FC = () => {
         <>
           <SearchCountry />
           <div className="flex gap-10">
-            {/* <DataListOfCountries countriesList={data} /> */}
+            <DataListOfCountries />
             <AZSort />
           </div>
           <Countries countriesList={codes} />

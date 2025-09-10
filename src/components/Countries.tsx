@@ -14,7 +14,6 @@ import {
 import CountryRow from './CountryRow';
 
 const Countries: FC<CountriesProps> = ({ countriesList }) => {
-  console.log(countriesList);
   const searchData = useSelector((state: RootState) => state.country.country);
   const isSorted = useSelector((state: RootState) => state.isSorted.isSorted);
   const codes = useMemo(
